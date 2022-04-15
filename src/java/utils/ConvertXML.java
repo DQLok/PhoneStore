@@ -89,10 +89,6 @@ public class ConvertXML {
                 creationDate.appendChild(document.createTextNode(LocalDateTime.now().format(formatter)));
                 product.appendChild(creationDate);
 
-                Element starRating = document.createElement("starRating");
-                starRating.appendChild(document.createTextNode("4"));
-                product.appendChild(starRating);
-
                 Element categoryId = document.createElement("categoryId");
                 categoryId.appendChild(document.createTextNode("1"));
                 product.appendChild(categoryId);
