@@ -5,6 +5,8 @@
 package utils;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.ThreadLocalRandom;
@@ -16,6 +18,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import org.jsoup.Jsoup;
+import org.jsoup.select.Elements;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -25,11 +29,14 @@ import org.w3c.dom.Element;
  */
 public class ConvertXML {
 
-    public static final String[] listCategories = {"SamSung", "Iphone", "Oppo"};
-    public static final String[] listIconsCategories = {"https://cdn.tgdd.vn/Brand/1/samsungnew-220x48-1.png", "https://cdn.tgdd.vn/Brand/1/logo-iphone-220x48.png", "https://cdn.tgdd.vn/Brand/1/OPPO42-b_5.jpg"};
+    public static final String[] listCategories = {"","Samsung", "iPhone", "OPPO"};
+    public static final String[] listIconsCategories = {"","https://cdn.tgdd.vn/Brand/1/samsungnew-220x48-1.png", "https://cdn.tgdd.vn/Brand/1/logo-iphone-220x48.png", "https://cdn.tgdd.vn/Brand/1/OPPO42-b_5.jpg"};
 
-    public static void GenerateXmlFile(String xmlFilePath) {
+    public static final String xmlFileDB = "//Users//duylp//Desktop//Project7//PhoneStore//src//java//utils//application_db.xml";
+
+    public static void GenerateXmlFile(String xmlFilePath, boolean crawlData) throws IOException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DecimalFormat formatterPrice = new DecimalFormat("###,###,###");
         try {
 
             DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
@@ -43,12 +50,12 @@ public class ConvertXML {
 
             Element categories = document.createElement("categories");
             db.appendChild(categories);
-            for (int i = 0; i < 3; i++) {
+            for (int i = 1; i < 4; i++) {
                 Element category = document.createElement("category");
                 categories.appendChild(category);
 
                 Element id = document.createElement("id");
-                id.appendChild(document.createTextNode(i + 1 + ""));
+                id.appendChild(document.createTextNode("C-" + i));
                 category.appendChild(id);
 
                 Element categoryName = document.createElement("categoryName");
@@ -62,38 +69,93 @@ public class ConvertXML {
 
             Element products = document.createElement("products");
             db.appendChild(products);
+
+            Element product;
+            Element productId;
+            Element productName;
+            Element price;
+            Element image;
+            Element creationDate;
+            Element categoryId;
+
             int count = 0;
             int priceConst = 37990000;
             for (int i = 1; i < 10; i++) {
                 count++;
-                Element product = document.createElement("product");
+                product = document.createElement("product");
                 products.appendChild(product);
 
-                Element productId = document.createElement("productId");
-                productId.appendChild(document.createTextNode("P-" + i));
+                productId = document.createElement("productId");
+                productId.appendChild(document.createTextNode("P-" + count));
                 product.appendChild(productId);
 
-                Element productName = document.createElement("productName");
+                productName = document.createElement("productName");
                 productName.appendChild(document.createTextNode("Samsung Galaxy" + i));
                 product.appendChild(productName);
 
-                Element price = document.createElement("price");
-                price.appendChild(document.createTextNode(priceConst + ThreadLocalRandom.current().nextInt(1, 101) + ""));
+                price = document.createElement("price");
+                price.appendChild(document.createTextNode(formatterPrice.format(priceConst + ThreadLocalRandom.current().nextInt(1, 101)) + "đ"));
                 product.appendChild(price);
 
-                Element image = document.createElement("image");
+                image = document.createElement("image");
                 image.appendChild(document.createTextNode("https://cdn.tgdd.vn/Products/Images/42/226935/samsung-galaxy-z-fold-3-silver-1-600x600.jpg"));
                 product.appendChild(image);
 
-                Element creationDate = document.createElement("creationDate");
+                creationDate = document.createElement("creationDate");
                 creationDate.appendChild(document.createTextNode(LocalDateTime.now().format(formatter)));
                 product.appendChild(creationDate);
 
-                Element categoryId = document.createElement("categoryId");
+                categoryId = document.createElement("categoryId");
                 categoryId.appendChild(document.createTextNode("1"));
                 product.appendChild(categoryId);
 
             }
+
+            if (crawlData) {
+                String link = "https://www.hnammobile.com/dien-thoai?filter=p-desc&page=";
+                for (int i = 1; i < 5; i++) {
+                    org.jsoup.nodes.Document doc = Jsoup.connect(link + i).timeout(5000).get();
+                    Elements pName = doc.select("div[class=product-mid]>h3[class=product-name]>a");
+                    Elements pImage = doc.select("div[class=product-mid]>div[class=product-image]>figure>a>picture>img");
+                    Elements pPrice = doc.select("div[class=product-mid]>div[class=product-price vat]>b");
+                    for (int j = 0; j < 25; j++) {
+                        count++;
+                        product = document.createElement("product");
+                        products.appendChild(product);
+
+                        productId = document.createElement("productId");
+                        productId.appendChild(document.createTextNode("P-" + count));
+                        product.appendChild(productId);
+
+                        productName = document.createElement("productName");
+                        productName.appendChild(document.createTextNode(pName.get(j).ownText()));
+                        product.appendChild(productName);
+
+                        price = document.createElement("price");
+                        price.appendChild(document.createTextNode(pPrice.get(j).ownText().replaceAll("[.]",",")));
+                        product.appendChild(price);
+
+                        image = document.createElement("image");
+                        image.appendChild(document.createTextNode(pImage.get(j).attr("data-src")));
+                        product.appendChild(image);
+
+                        creationDate = document.createElement("creationDate");
+                        creationDate.appendChild(document.createTextNode(LocalDateTime.now().format(formatter)));
+                        product.appendChild(creationDate);
+
+                        categoryId = document.createElement("categoryId");
+                        if (pName.get(j).ownText().substring(0, 3).equalsIgnoreCase("App")) {
+                            categoryId.appendChild(document.createTextNode("C-2"));
+                        } else if (pName.get(j).ownText().substring(0, 3).equalsIgnoreCase("OPP")) {
+                            categoryId.appendChild(document.createTextNode("C-3"));
+                        } else {
+                            categoryId.appendChild(document.createTextNode("C-1"));
+                        }
+                        product.appendChild(categoryId);
+                    }
+                }
+            }
+
             Element total = document.createElement("total");
             total.appendChild(document.createTextNode("" + count));
             db.appendChild(total);
@@ -102,8 +164,10 @@ public class ConvertXML {
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource domSource = new DOMSource(document);
             StreamResult streamResult = new StreamResult(new File(xmlFilePath));
+            StreamResult streamResult2 = new StreamResult(new File(xmlFileDB));
 
             transformer.transform(domSource, streamResult);
+            transformer.transform(domSource, streamResult2);
 
             System.out.println("Done creating XML File");
 

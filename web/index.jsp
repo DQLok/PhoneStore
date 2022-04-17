@@ -83,7 +83,7 @@
                         </button>
                     </th>
                     <th scope="col">Price</th>
-                    <th scope="col">CreationDate</th>
+                    <th scope="col">Creation Date</th>
                     <th scope="col">Category</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
@@ -102,7 +102,7 @@
                     </td>
                     <td>37990000</td>
                     <td>15-04-2022</td>
-                    <td>SamSung</td>
+                    <td>Sam Sung</td>
                     <td>
                         <button type="button" class="btn btn-primary">
                             <i class="fas fa-edit"></i> Edit
@@ -131,6 +131,7 @@
                 <h2>Choose feature</h2>
                 <form method="post" action="MainController">
                     <input type="submit" name="btnAction" value="Generate Data" />
+                    <input type="submit" name="btnAction" value="Crawl Data" />
                     <input type="submit" name="btnAction" value="Check Data" />
                 </form>
                 <h2>
