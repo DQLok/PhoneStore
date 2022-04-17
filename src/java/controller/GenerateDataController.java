@@ -4,11 +4,7 @@
  */
 package controller;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,13 +28,13 @@ public class GenerateDataController extends HttpServlet {
         String url = INDEX_PAGE;
         try {
             String path = request.getServletContext().getRealPath("/xml/fileXML.xml");
-            ConvertXML.GenerateXmlFile(path);
-            request.setAttribute("SUCCESS_CREATE", "Done creating XML File");          
+            ConvertXML.GenerateXmlFile(path, false);
+            request.setAttribute("SUCCESS_CREATE", "Done creating XML File");
         } catch (Exception e) {
             e.printStackTrace();
             url = ERROR_PAGE;
         } finally {
-            request.getRequestDispatcher(url).forward(request, response);           
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 
