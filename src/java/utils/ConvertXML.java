@@ -6,7 +6,6 @@ package utils;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.ThreadLocalRandom;
@@ -32,11 +31,10 @@ public class ConvertXML {
     public static final String[] listCategories = {"","Samsung", "iPhone", "OPPO"};
     public static final String[] listIconsCategories = {"","https://cdn.tgdd.vn/Brand/1/samsungnew-220x48-1.png", "https://cdn.tgdd.vn/Brand/1/logo-iphone-220x48.png", "https://cdn.tgdd.vn/Brand/1/OPPO42-b_5.jpg"};
 
-    public static final String xmlFileDB = "//Users//duylp//Desktop//Project7//PhoneStore//src//java//utils//application_db.xml";
+    public static final String xmlFileDB = "//Users//duylp//Desktop//My folder//FPT//Ki 8//PRX301//PhoneStore//src//java//utils//application_db.xml";
 
     public static void GenerateXmlFile(String xmlFilePath, boolean crawlData) throws IOException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        DecimalFormat formatterPrice = new DecimalFormat("###,###,###");
         try {
 
             DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
@@ -94,7 +92,7 @@ public class ConvertXML {
                 product.appendChild(productName);
 
                 price = document.createElement("price");
-                price.appendChild(document.createTextNode(formatterPrice.format(priceConst + ThreadLocalRandom.current().nextInt(1, 101)) + "đ"));
+                price.appendChild(document.createTextNode(priceConst + ThreadLocalRandom.current().nextInt(1, 101) + ""));
                 product.appendChild(price);
 
                 image = document.createElement("image");
@@ -132,7 +130,7 @@ public class ConvertXML {
                         product.appendChild(productName);
 
                         price = document.createElement("price");
-                        price.appendChild(document.createTextNode(pPrice.get(j).ownText().replaceAll("[.]",",")));
+                        price.appendChild(document.createTextNode(pPrice.get(j).ownText().replaceAll("[.đ]","")));
                         product.appendChild(price);
 
                         image = document.createElement("image");
