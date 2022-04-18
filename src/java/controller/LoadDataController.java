@@ -1,51 +1,50 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import products.ProductDAO;
+import products.ProductDTO;
 
 /**
  *
- * @author duylp
+ * @author LokDQ
  */
-@WebServlet(name = "MainController", urlPatterns = {"/MainController"})
-public class MainController extends HttpServlet {
-
-    private final String INDEX_PAGE = "index.jsp";
-    private final String GENERATE_DATA = "GenerateDataController";
-    private final String CHECK_DATA = "CheckDataController";
-    private final String DOWNLOAD_DATA = "DownloadDataController";
-    private final String LOAD_DATA = "LoadDataController";
+@WebServlet(name = "LoadDataController", urlPatterns = {"/LoadDataController"})
+public class LoadDataController extends HttpServlet {
     
+    private final String INDEX_PAGE = "index.jsp";
+    private final String ERROR_PAGE = "error.html";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("btnAction");
         String url = INDEX_PAGE;
         try {
-            if ("Generate Data".equals(action)) {
-                url = GENERATE_DATA;
-            }
-            if("Check Data".equals(action)){
-                url = CHECK_DATA;
-            }
-            if ("Dowload Data".equals(action)){
-                url = DOWNLOAD_DATA;
-            }
-            if ("Load Data".equals(action)){
-                url = LOAD_DATA;
+            HttpSession session = request.getSession();
+            String path = request.getServletContext().getRealPath("/xml/fileXML.xml");
+            ProductDAO dao = new ProductDAO();
+            List<ProductDTO> listProduct = dao.getAllProducts(path);
+            if (listProduct != null) {
+                session.setAttribute("LISTPRODUCTS", listProduct);
+                System.out.println("^^^^^^^^^6");
+                System.out.println(listProduct.size());
             }
         } catch (Exception e) {
             e.printStackTrace();
+            url = ERROR_PAGE;
         } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+             request.getRequestDispatcher(url).forward(request, response); 
         }
     }
 
