@@ -10,43 +10,29 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import utils.ConvertXML;
 
 /**
  *
  * @author duylp
  */
-@WebServlet(name = "MainController", urlPatterns = {"/MainController"})
-public class MainController extends HttpServlet {
+@WebServlet(name = "GenerateCrawlDataController", urlPatterns = {"/GenerateCrawlDataController"})
+public class GenerateCrawlDataController extends HttpServlet {
 
     private final String INDEX_PAGE = "index.jsp";
-    private final String GENERATE_DATA = "GenerateDataController";
-    private final String CHECK_DATA = "CheckDataController";
-    private final String DOWNLOAD_DATA = "DownloadDataController";
-    private final String LOAD_DATA = "LoadDataController";
-    private final String GENERATE_CRAWL_DATA = "GenerateCrawlDataController";
+    private final String ERROR_PAGE = "error.html";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("btnAction");
         String url = INDEX_PAGE;
         try {
-            if ("Generate Data".equals(action)) {
-                url = GENERATE_DATA;
-            }
-            if ("Check Data".equals(action)) {
-                url = CHECK_DATA;
-            }
-            if ("Dowload Data".equals(action)) {
-                url = DOWNLOAD_DATA;
-            }
-            if ("Load Data".equals(action)){
-                url = LOAD_DATA;
-            }
-            if ("Crawl Data".equals(action)) {
-                url = GENERATE_CRAWL_DATA;
-            }
+            String path = request.getServletContext().getRealPath("/xml/fileXML.xml");
+            ConvertXML.GenerateXmlFile(path, true);
+            request.setAttribute("SUCCESS_CREATE", "Done creating XML File");
         } catch (Exception e) {
             e.printStackTrace();
+            url = ERROR_PAGE;
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
