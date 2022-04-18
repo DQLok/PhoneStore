@@ -22,7 +22,7 @@ import products.ProductDTO;
  */
 @WebServlet(name = "LoadDataController", urlPatterns = {"/LoadDataController"})
 public class LoadDataController extends HttpServlet {
-    
+
     private final String INDEX_PAGE = "index.jsp";
     private final String ERROR_PAGE = "error.html";
 
@@ -31,10 +31,19 @@ public class LoadDataController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = INDEX_PAGE;
         try {
+//            String indexPage = request.getParameter("index");
+//            int index = Integer.parseInt(indexPage);
+//            int count = 109;
+//            int endPage = count / 25;
+//            if (count % 25 != 0) {
+//                endPage++;
+//            }
+//            request.setAttribute("endP", endPage);
             HttpSession session = request.getSession();
             String path = request.getServletContext().getRealPath("/xml/fileXML.xml");
             ProductDAO dao = new ProductDAO();
             List<ProductDTO> listProduct = dao.getAllProducts(path);
+            //List<ProductDTO> listProduct = dao.pagingProducts(path, index);
             if (listProduct != null) {
                 session.setAttribute("LISTPRODUCTS", listProduct);
                 System.out.println("^^^^^^^^^6");
@@ -44,7 +53,7 @@ public class LoadDataController extends HttpServlet {
             e.printStackTrace();
             url = ERROR_PAGE;
         } finally {
-             request.getRequestDispatcher(url).forward(request, response); 
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

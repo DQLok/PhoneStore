@@ -84,7 +84,7 @@ public class ConvertXML {
                 products.appendChild(product);
 
                 productId = document.createElement("productId");
-                productId.appendChild(document.createTextNode("P-" + count));
+                productId.appendChild(document.createTextNode("" + count));
                 product.appendChild(productId);
 
                 productName = document.createElement("productName");
@@ -104,7 +104,7 @@ public class ConvertXML {
                 product.appendChild(creationDate);
 
                 categoryId = document.createElement("categoryId");
-                categoryId.appendChild(document.createTextNode("1"));
+                categoryId.appendChild(document.createTextNode("C-1"));
                 product.appendChild(categoryId);
 
             }
@@ -122,7 +122,7 @@ public class ConvertXML {
                         products.appendChild(product);
 
                         productId = document.createElement("productId");
-                        productId.appendChild(document.createTextNode("P-" + count));
+                        productId.appendChild(document.createTextNode("" + count));
                         product.appendChild(productId);
 
                         productName = document.createElement("productName");
