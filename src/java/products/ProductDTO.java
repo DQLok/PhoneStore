@@ -14,6 +14,18 @@ import javax.xml.bind.annotation.XmlElement;
  */
 public class ProductDTO {
 
+    public ProductDTO() {
+    }
+        
+    public ProductDTO(String productId, String productName, BigDecimal price, String image, String creationDate, String categoryId) {
+        this.productId = productId;
+        this.productName = productName;
+        this.price = price;
+        this.image = image;
+        this.creationDate = creationDate;
+        this.categoryId = categoryId;
+    }
+        
     @XmlElement(required = true)
     protected String productId;
     @XmlElement(required = true)

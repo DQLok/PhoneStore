@@ -49,8 +49,7 @@ public class DownloadDataController extends HttpServlet {
             e.printStackTrace();
             url = ERROR_PAGE;
         } finally {
-            out.close();
-//            request.getRequestDispatcher(url).forward(request, response);           
+            out.close();          
         }
     }
 

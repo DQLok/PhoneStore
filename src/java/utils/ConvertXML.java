@@ -31,8 +31,6 @@ public class ConvertXML {
     public static final String[] listCategories = {"","Samsung", "iPhone", "OPPO"};
     public static final String[] listIconsCategories = {"","https://cdn.tgdd.vn/Brand/1/samsungnew-220x48-1.png", "https://cdn.tgdd.vn/Brand/1/logo-iphone-220x48.png", "https://cdn.tgdd.vn/Brand/1/OPPO42-b_5.jpg"};
 
-    public static final String xmlFileDB = "/xml/fileXML.xml";
-
     public static void GenerateXmlFile(String xmlFilePath, boolean crawlData) throws IOException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         try {
@@ -104,7 +102,7 @@ public class ConvertXML {
                 product.appendChild(creationDate);
 
                 categoryId = document.createElement("categoryId");
-                categoryId.appendChild(document.createTextNode("1"));
+                categoryId.appendChild(document.createTextNode("C-1"));
                 product.appendChild(categoryId);
 
             }
@@ -162,10 +160,8 @@ public class ConvertXML {
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource domSource = new DOMSource(document);
             StreamResult streamResult = new StreamResult(new File(xmlFilePath));
-            StreamResult streamResult2 = new StreamResult(new File(xmlFileDB));
 
             transformer.transform(domSource, streamResult);
-            transformer.transform(domSource, streamResult2);
 
             System.out.println("Done creating XML File");
 

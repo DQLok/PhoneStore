@@ -60,85 +60,87 @@
                     </div>
                 </nav>
             </header>
-            <div>
-                <form method="post" action="MainController">
+            <form method="post" action="MainController">
+                <div>
+
                     <input type="submit" name="btnAction" value="Generate Data" />
                     <input type="submit" name="btnAction" value="Crawl Data" />
                     <input type="submit" name="btnAction" value="Check Data" />
                     <input type="submit" name="btnAction" value="Load Data" />
-                </form>
-                <h2>
-                    <font color="green">
-                    ${requestScope.SUCCESS}
-                    </font>
-                    <font color="green">
-                    ${requestScope.SUCCESS_CREATE}
-                    </font>
-                </h2>
-                <c:if test="${requestScope.SUCCESS_CREATE ne null }">
-                    <p>Click on the image to download it:<p>
-                        <a href="MainController?btnAction=Dowload Data" download="fileXML">
-                            <img src="https://www.phoca.cz/images/projects/phoca-download-r.png" width="100" height="100">
-                        </a>
-                    </c:if>
-            </div>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Product Name</th>
-                        <th scope="col">
-                            <button type="button" class="btn btn-light">
-                                <i class="fas fa-sort"></i>
-                            </button>
-                        </th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Creation Date</th>
-                        <th scope="col">Category</th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="list" items="${sessionScope.LISTPRODUCTS}" varStatus="counters">
+
+                    <h2>
+                        <font color="green">
+                        ${requestScope.SUCCESS}
+                        </font>
+                        <font color="green">
+                        ${requestScope.SUCCESS_CREATE}
+                        </font>
+                    </h2>
+                    <c:if test="${requestScope.SUCCESS_CREATE ne null }">
+                        <p>Click on the image to download it:<p>
+                            <a href="MainController?btnAction=Dowload Data" download="fileXML">
+                                <img src="https://www.phoca.cz/images/projects/phoca-download-r.png" width="100" height="100">
+                            </a>
+                        </c:if>
+                </div>
+                <table class="table table-striped">
+                    <thead>
                         <tr>
-                            <td scope="row">${list.productId}</td>
-                            <td>${list.productName}</td>
-                            <td>
-                                <img
-                                    src="${list.image}"
-                                    width="100"
-                                    />
-                            </td>
-                            <td>${list.price}</td>
-                            <td>${list.creationDate}</td>
-                            <td>
-                                <button type="button" class="btn btn-primary">
-                                    <i class="fas fa-edit"></i> Edit
+                            <th scope="col">Id</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">
+                                <button type="button" class="btn btn-light">
+                                    <i class="fas fa-sort"></i>
                                 </button>
-                            </td>
-                            <td>
-                                <button
-                                    type="button"
-                                    class="btn btn-warning"
-                                    data-toggle="modal"
-                                    data-target="#exampleModal"
-                                    >
-                                    <i class="fas fa-info"></i> Detail
-                                </button>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-danger">
-                                    <i class="fa fa-trash"></i> Delete
-                                </button>
-                            </td>
+                            </th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Creation Date</th>
+                            <th scope="col">Category</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
                         </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
-            <footer>
-            </footer>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="list" items="${sessionScope.LISTPRODUCTS}" varStatus="counters">
+                            <tr>
+                                <td scope="row">${list.productId}</td>
+                                <td>${list.productName}</td>
+                                <td>
+                                    <img
+                                        src="${list.image}"
+                                        width="100"
+                                        />
+                                </td>
+                                <td>${list.price}</td>
+                                <td>${list.creationDate}</td>
+                                <td>${list.categoryId}</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </button>
+                                </td>
+                                <td>
+                                    <button
+                                        type="button"
+                                        class="btn btn-warning"
+                                        data-toggle="modal"
+                                        data-target="#exampleModal"
+                                        >
+                                        <i class="fas fa-info"></i> Detail
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-danger" name="btnAction" value="Delete Product">
+                                        <i class="fa fa-trash"></i> Delete
+                                        <input type="hidden" name="idProduct" value="${list.productId}"/>
+                                    </button>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </form>
 
             <div
                 class="modal fade"

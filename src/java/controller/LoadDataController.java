@@ -37,8 +37,6 @@ public class LoadDataController extends HttpServlet {
             List<ProductDTO> listProduct = dao.getAllProducts(path);
             if (listProduct != null) {
                 session.setAttribute("LISTPRODUCTS", listProduct);
-                System.out.println("^^^^^^^^^6");
-                System.out.println(listProduct.size());
             }
         } catch (Exception e) {
             e.printStackTrace();

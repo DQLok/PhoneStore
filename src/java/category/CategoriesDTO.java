@@ -13,6 +13,15 @@ import javax.xml.bind.annotation.XmlElement;
  */
 public class CategoriesDTO {
 
+    public CategoriesDTO() {
+    }
+        
+    public CategoriesDTO(String id, String categoryName, String icon) {
+        this.id = id;
+        this.categoryName = categoryName;
+        this.icon = icon;
+    }
+        
     @XmlElement(required = true)
     protected String id;
     @XmlElement(required = true)
