@@ -48,23 +48,10 @@
                         </button>
                     </form>
                     <ul class="navbar-nav my-2 my-lg-0">
-                        <li class="nav-item dropdown">
-                            <select
-                                name="cars"
-                                id="cars"
-                                class="nav-link dropdown-toggle"
-                                href="#"
-                                id="navbarDropdown"
-                                role="button"
-                                data-toggle="dropdown"
-                                aria-expanded="false"
-                                >
-                                <option class="dropdown-item" value="volvo">Samsung</option>
-                                <option class="dropdown-item" value="saab">iPhone</option>
-                            </select>
-                        </li>
                         <li class="ml-3">
-                            <button type="button" class="btn btn-primary">
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#exampleModal2"
+                                    data-whatever="@getbootstrap" >
                                 <i class="fas fa-plus"></i> Add Product
                             </button>
                         </li>
@@ -100,9 +87,9 @@
                             width="100"
                             />
                     </td>
-                    <td>37990000</td>
+                    <td>37990000 đ</td>
                     <td>15-04-2022</td>
-                    <td>Sam Sung</td>
+                    <td>Samsung</td>
                     <td>
                         <button type="button" class="btn btn-primary">
                             <i class="fas fa-edit"></i> Edit
@@ -150,6 +137,82 @@
                     </c:if>
             </div>
         </footer>
+
+        <div
+            class="modal fade"
+            id="exampleModal2"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+            >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Create Product</h5>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                            >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label"
+                                       >Name Product:</label
+                                >
+                                <input type="text" class="form-control" id="recipient-name" />
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label"
+                                       >Price:</label
+                                >
+                                <input type="text" class="form-control" id="recipient-name" />
+                            </div>
+                            <div class="form-group nav-item dropdown">
+                                <label for="recipient-name" class="col-form-label"
+                                       >Category:</label
+                                >
+                                <select
+                                    name="cars"
+                                    id="cars"
+                                    class="nav-link dropdown-toggle"
+                                    href="#"
+                                    id="navbarDropdown"
+                                    role="button"
+                                    data-toggle="dropdown"
+                                    aria-expanded="false"
+                                    >
+                                    <option class="dropdown-item" value="volvo">Samsung</option>
+                                    <option class="dropdown-item" value="saab">iPhone</option>
+                                    <option class="dropdown-item" value="saab">OPPO</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label"
+                                       >Image:</label
+                                >
+                                <input type="file" class="form-control" name="newImage" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal"
+                            >
+                            Close
+                        </button>
+                        <button type="button" class="btn btn-primary">Add Product</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div
             class="modal fade"
             id="exampleModal"
