@@ -1,3 +1,4 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -25,49 +26,40 @@
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
             crossorigin="anonymous"
             />
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"
+            />
+        <link
+            href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css"
+            />
+        <link rel="stylesheet" href="./dataTable.css" />
     </head>
     <body>
         <div>            
             <header>
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <nav class="navbar navbar-light bg-light">
                     <a class="navbar-brand" href="#">
                         <img
                             src="https://png.pngtree.com/template/20190422/ourmid/pngtree-phone-store-logo-design-image_145177.jpg"
                             width="50"
                             /></a>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <form class="form-inline mr-auto">
-                            <input
-                                class="form-control mr-sm-2"
-                                type="search"
-                                placeholder="Search"
-                                aria-label="Search"
-                                />
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                                Search
-                            </button>
-                        </form>
-                        <ul class="navbar-nav my-2 my-lg-0">
-                            <li class="ml-3">
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#exampleModal2"
-                                        data-whatever="@getbootstrap" >
-                                    <i class="fas fa-plus"></i> Add Product
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
+                    <form class="form-inline">
+                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#exampleModal2"
+                                data-whatever="@getbootstrap" >
+                            <i class="fas fa-plus"></i> Add Product
+                        </button>
+                    </form>
                 </nav>
             </header>
-            <form method="post" action="MainController">
+            <div style="width: 98%; margin: auto">
                 <div>
-
-                    <input type="submit" name="btnAction" value="Generate Data" />
-                    <input type="submit" name="btnAction" value="Crawl Data" />
-                    <input type="submit" name="btnAction" value="Check Data" />
-                    <input type="submit" name="btnAction" value="Load Data" />
-
+                    <form method="post" action="MainController">
+                        <input type="submit" name="btnAction" value="Generate Data" />
+                        <input type="submit" name="btnAction" value="Crawl Data" />
+                        <input type="submit" name="btnAction" value="Check Data" />
+                        <input type="submit" name="btnAction" value="Load Data" />
+                    </form>
                     <h2>
                         <font color="green">
                         ${requestScope.SUCCESS}
@@ -83,40 +75,53 @@
                             </a>
                         </c:if>
                 </div>
-                <table class="table table-striped">
+                <table id="dataTable"
+                       class="table table-striped table-bordered"
+                       style="width: 100%">
                     <thead>
                         <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Product Name</th>
-                            <th scope="col">
-                                <button type="button" class="btn btn-light">
-                                    <i class="fas fa-sort"></i>
-                                </button>
-                            </th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Creation Date</th>
-                            <th scope="col">Category</th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
+                            <th style="width: 100px">Id <i class="fas fa-sort"></i></th>
+                            <th style="width: 200px">Product Name <i class="fas fa-sort"></i></th>
+                            <th></th>
+                            <th>Price <i class="fas fa-sort"></i></th>
+                            <th>Creation Date</th>
+                            <th>Category</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <c:forEach var="list" items="${sessionScope.LISTPRODUCTS}" varStatus="counters">
                             <tr>
-                                <td scope="row">${list.productId}</td>
+                                <td>${list.productId}</td>
                                 <td>${list.productName}</td>
                                 <td>
                                     <img
                                         src="${list.image}"
                                         width="100"
                                         />
-                                </td>
-                                <td>${list.price}</td>
-                                <td>${list.creationDate}</td>
-                                <td>${list.categoryId}</td>
+                                </td>  
                                 <td>
-                                    <button type="button" class="btn btn-primary">
+                                    <fmt:setLocale value = "vi_VN"/>
+                                    <fmt:formatNumber value = "${list.price}" type = "currency"/>
+                                </td>
+                                <td>${list.creationDate}</td>
+                                <td>
+                                    <c:if test="${list.categoryId eq 'C-1'}">
+                                        Samsung
+                                    </c:if>
+                                    <c:if test="${list.categoryId eq 'C-2'}">
+                                        iPhone
+                                    </c:if>
+                                    <c:if test="${list.categoryId eq 'C-3'}">
+                                        OPPO
+                                    </c:if>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                            data-target="#exampleModal2"
+                                            data-whatever="@getbootstrap" >
                                         <i class="fas fa-edit"></i> Edit
                                     </button>
                                 </td>
@@ -131,16 +136,17 @@
                                     </button>
                                 </td>
                                 <td>
-                                    <button type="submit" class="btn btn-danger" name="btnAction" value="Delete Product">
+                                    <button type="button" class="btn btn-danger">
                                         <i class="fa fa-trash"></i> Delete
-                                        <input type="hidden" name="idProduct" value="${list.productId}"/>
                                     </button>
                                 </td>
                             </tr>
                         </c:forEach>
                     </tbody>
                 </table>
-            </form>
+            </div>
+            <footer>
+            </footer>
 
             <div
                 class="modal fade"
@@ -281,6 +287,9 @@
                 src="https://kit.fontawesome.com/a076d05399.js"
                 crossorigin="anonymous"
             ></script>
+            <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+            <script src="./dataTable.js"></script>
     </body>
 </html>
 

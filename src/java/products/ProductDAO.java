@@ -43,6 +43,46 @@ public class ProductDAO {
                 }
             }
         } catch (Exception e) {
+
+        }
+        return list;
+    }
+
+    public List<ProductDTO> pagingProducts(String path, int index) {
+        List<ProductDTO> list = new ArrayList<>();
+        try {
+//            File inputFile = new File(path);
+//            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+//            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+//            Document doc = dBuilder.parse(inputFile);
+//            doc.getDocumentElement().normalize();
+//            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+//            NodeList nList = doc.getElementsByTagName("product");
+//            System.out.println("**************");
+//            System.out.println(nList.getLength() + "");
+//            System.out.println("-----------------");
+//            System.out.println(nList.item(1));
+
+            Document doc = ProcessFile.getFile(path);
+            NodeList nList = doc.getElementsByTagName("product");
+
+            for (int i = (index - 1) * 25; i < (index - 1) * 25 + 25; i++) {
+                Node nNode = nList.item(i);
+
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element) nNode;
+                    System.out.println(eElement.getElementsByTagName("productId").item(0).getTextContent());
+                    ProductDTO dto = new ProductDTO();
+                    dto.setProductId(eElement.getElementsByTagName("productId").item(0).getTextContent());
+                    dto.setProductName(eElement.getElementsByTagName("productName").item(0).getTextContent());
+                    dto.setPrice(new BigDecimal(eElement.getElementsByTagName("price").item(0).getTextContent()));
+                    dto.setImage(eElement.getElementsByTagName("image").item(0).getTextContent());
+                    dto.setCreationDate(eElement.getElementsByTagName("creationDate").item(0).getTextContent());
+                    dto.setCategoryId(eElement.getElementsByTagName("categoryId").item(0).getTextContent());
+                    list.add(dto);
+                }
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
@@ -51,7 +91,7 @@ public class ProductDAO {
     public String addProduct(ProductDTO dto, String path) {
         try {
             Document doc = ProcessFile.getFile(path);
-            
+
             Node products = doc.getElementsByTagName("products").item(0);
             Element product = doc.createElement("product");
             //id
@@ -127,5 +167,4 @@ public class ProductDAO {
         }
         return "Update Succesfully";
     }
-
 }
