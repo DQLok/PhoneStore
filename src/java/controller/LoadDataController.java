@@ -33,21 +33,12 @@ public class LoadDataController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = INDEX_PAGE;
         try {
-//            String indexPage = request.getParameter("index");
-//            int index = Integer.parseInt(indexPage);
-//            int count = 109;
-//            int endPage = count / 25;
-//            if (count % 25 != 0) {
-//                endPage++;
-//            }
-//            request.setAttribute("endP", endPage);
             HttpSession session = request.getSession();
             String path = request.getServletContext().getRealPath("/xml/fileXML.xml");
             ProductDAO dao = new ProductDAO();
             CategoriesDAO daoc = new CategoriesDAO();
             List<ProductDTO> listProduct = dao.getAllProducts(path);
             List<CategoriesDTO> listCategory = daoc.getAllCategories(path);
-            //List<ProductDTO> listProduct = dao.pagingProducts(path, index);
             if (listProduct != null) {
                 session.setAttribute("LISTPRODUCTS", listProduct);
                 session.setAttribute("LISTCATEGORIES", listCategory);
