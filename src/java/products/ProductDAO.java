@@ -91,7 +91,9 @@ public class ProductDAO {
     public String addProduct(ProductDTO dto, String path) {
         try {
             Document doc = ProcessFile.getFile(path);
-
+            
+            Element db = doc.getDocumentElement();
+            
             Node products = doc.getElementsByTagName("products").item(0);
             Element product = doc.createElement("product");
             //id
@@ -104,7 +106,7 @@ public class ProductDAO {
             product.appendChild(productName);
             //price
             Element price = doc.createElement("price");
-            price.appendChild(doc.createTextNode(dto.getPrice().toString()));
+            price.appendChild(doc.createTextNode(dto.getPrice()+""));
             product.appendChild(price);
             //image
             Element image = doc.createElement("image");
@@ -120,6 +122,8 @@ public class ProductDAO {
             product.appendChild(categoryId);
 
             products.appendChild(product);
+            db.appendChild(products);
+            ProcessFile.saveXMLContent(doc, path);
         } catch (Exception e) {
             e.printStackTrace();
         }

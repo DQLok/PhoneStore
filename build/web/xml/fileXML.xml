@@ -1,1 +1,87 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><db><categories><category><id>C-1</id><categoryName>Samsung</categoryName><icon>https://cdn.tgdd.vn/Brand/1/samsungnew-220x48-1.png</icon></category><category><id>C-2</id><categoryName>iPhone</categoryName><icon>https://cdn.tgdd.vn/Brand/1/logo-iphone-220x48.png</icon></category><category><id>C-3</id><categoryName>OPPO</categoryName><icon>https://cdn.tgdd.vn/Brand/1/OPPO42-b_5.jpg</icon></category></categories><products><product><productId>1</productId><productName>Samsung Galaxy1</productName><price>37990023</price><image>https://cdn.tgdd.vn/Products/Images/42/226935/samsung-galaxy-z-fold-3-silver-1-600x600.jpg</image><creationDate>19-04-2022</creationDate><categoryId>C-1</categoryId></product><product><productId>2</productId><productName>Samsung Galaxy2</productName><price>37990081</price><image>https://cdn.tgdd.vn/Products/Images/42/226935/samsung-galaxy-z-fold-3-silver-1-600x600.jpg</image><creationDate>19-04-2022</creationDate><categoryId>C-1</categoryId></product><product><productId>3</productId><productName>Samsung Galaxy3</productName><price>37990099</price><image>https://cdn.tgdd.vn/Products/Images/42/226935/samsung-galaxy-z-fold-3-silver-1-600x600.jpg</image><creationDate>19-04-2022</creationDate><categoryId>C-1</categoryId></product><product><productId>4</productId><productName>Samsung Galaxy4</productName><price>37990027</price><image>https://cdn.tgdd.vn/Products/Images/42/226935/samsung-galaxy-z-fold-3-silver-1-600x600.jpg</image><creationDate>19-04-2022</creationDate><categoryId>C-1</categoryId></product><product><productId>5</productId><productName>Samsung Galaxy5</productName><price>37990045</price><image>https://cdn.tgdd.vn/Products/Images/42/226935/samsung-galaxy-z-fold-3-silver-1-600x600.jpg</image><creationDate>19-04-2022</creationDate><categoryId>C-1</categoryId></product><product><productId>6</productId><productName>Samsung Galaxy6</productName><price>37990008</price><image>https://cdn.tgdd.vn/Products/Images/42/226935/samsung-galaxy-z-fold-3-silver-1-600x600.jpg</image><creationDate>19-04-2022</creationDate><categoryId>C-1</categoryId></product><product><productId>7</productId><productName>Samsung Galaxy7</productName><price>37990028</price><image>https://cdn.tgdd.vn/Products/Images/42/226935/samsung-galaxy-z-fold-3-silver-1-600x600.jpg</image><creationDate>19-04-2022</creationDate><categoryId>C-1</categoryId></product><product><productId>8</productId><productName>Samsung Galaxy8</productName><price>37990051</price><image>https://cdn.tgdd.vn/Products/Images/42/226935/samsung-galaxy-z-fold-3-silver-1-600x600.jpg</image><creationDate>19-04-2022</creationDate><categoryId>C-1</categoryId></product><product><productId>9</productId><productName>Samsung Galaxy9</productName><price>37990015</price><image>https://cdn.tgdd.vn/Products/Images/42/226935/samsung-galaxy-z-fold-3-silver-1-600x600.jpg</image><creationDate>19-04-2022</creationDate><categoryId>C-1</categoryId></product></products><total>9</total></db>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<db>
+<categories>
+<category>
+<id>C-1</id>
+<categoryName>Samsung</categoryName>
+<icon>https://cdn.tgdd.vn/Brand/1/samsungnew-220x48-1.png</icon>
+</category>
+<category>
+<id>C-2</id>
+<categoryName>iPhone</categoryName>
+<icon>https://cdn.tgdd.vn/Brand/1/logo-iphone-220x48.png</icon>
+</category>
+<category>
+<id>C-3</id>
+<categoryName>OPPO</categoryName>
+<icon>https://cdn.tgdd.vn/Brand/1/OPPO42-b_5.jpg</icon>
+</category>
+</categories>
+<products>
+<product>
+<productId>2</productId>
+<productName>Samsung Galaxy2</productName>
+<price>37990002</price>
+<image>https://cdn.tgdd.vn/Products/Images/42/226935/samsung-galaxy-z-fold-3-silver-1-600x600.jpg</image>
+<creationDate>19-04-2022</creationDate>
+<categoryId>C-1</categoryId>
+</product>
+<product>
+<productId>3</productId>
+<productName>Samsung Galaxy3</productName>
+<price>37990059</price>
+<image>https://cdn.tgdd.vn/Products/Images/42/226935/samsung-galaxy-z-fold-3-silver-1-600x600.jpg</image>
+<creationDate>19-04-2022</creationDate>
+<categoryId>C-1</categoryId>
+</product>
+<product>
+<productId>4</productId>
+<productName>Samsung Galaxy4</productName>
+<price>37990079</price>
+<image>https://cdn.tgdd.vn/Products/Images/42/226935/samsung-galaxy-z-fold-3-silver-1-600x600.jpg</image>
+<creationDate>19-04-2022</creationDate>
+<categoryId>C-1</categoryId>
+</product>
+<product>
+<productId>5</productId>
+<productName>Samsung Galaxy5</productName>
+<price>37990091</price>
+<image>https://cdn.tgdd.vn/Products/Images/42/226935/samsung-galaxy-z-fold-3-silver-1-600x600.jpg</image>
+<creationDate>19-04-2022</creationDate>
+<categoryId>C-1</categoryId>
+</product>
+<product>
+<productId>6</productId>
+<productName>Samsung Galaxy6</productName>
+<price>37990039</price>
+<image>https://cdn.tgdd.vn/Products/Images/42/226935/samsung-galaxy-z-fold-3-silver-1-600x600.jpg</image>
+<creationDate>19-04-2022</creationDate>
+<categoryId>C-1</categoryId>
+</product>
+<product>
+<productId>7</productId>
+<productName>Samsung Galaxy7</productName>
+<price>37990017</price>
+<image>https://cdn.tgdd.vn/Products/Images/42/226935/samsung-galaxy-z-fold-3-silver-1-600x600.jpg</image>
+<creationDate>19-04-2022</creationDate>
+<categoryId>C-1</categoryId>
+</product>
+<product>
+<productId>8</productId>
+<productName>Samsung Galaxy8</productName>
+<price>37990008</price>
+<image>https://cdn.tgdd.vn/Products/Images/42/226935/samsung-galaxy-z-fold-3-silver-1-600x600.jpg</image>
+<creationDate>19-04-2022</creationDate>
+<categoryId>C-1</categoryId>
+</product>
+<product>
+<productId>9</productId>
+<productName>Samsung Galaxy9</productName>
+<price>37990011</price>
+<image>https://cdn.tgdd.vn/Products/Images/42/226935/samsung-galaxy-z-fold-3-silver-1-600x600.jpg</image>
+<creationDate>19-04-2022</creationDate>
+<categoryId>C-1</categoryId>
+</product>
+</products>
+<total>9</total>
+</db>

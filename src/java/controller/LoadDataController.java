@@ -5,6 +5,8 @@
  */
 package controller;
 
+import category.CategoriesDAO;
+import category.CategoriesDTO;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -42,10 +44,13 @@ public class LoadDataController extends HttpServlet {
             HttpSession session = request.getSession();
             String path = request.getServletContext().getRealPath("/xml/fileXML.xml");
             ProductDAO dao = new ProductDAO();
+            CategoriesDAO daoc = new CategoriesDAO();
             List<ProductDTO> listProduct = dao.getAllProducts(path);
+            List<CategoriesDTO> listCategory = daoc.getAllCategories(path);
             //List<ProductDTO> listProduct = dao.pagingProducts(path, index);
             if (listProduct != null) {
                 session.setAttribute("LISTPRODUCTS", listProduct);
+                session.setAttribute("LISTCATEGORIES", listCategory);
             }
         } catch (Exception e) {
             e.printStackTrace();

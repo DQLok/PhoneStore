@@ -10,6 +10,8 @@ import category.CategoriesDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,11 +36,12 @@ public class AddProductController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = INDEX_PAGE;        
         try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             String path = request.getServletContext().getRealPath("/xml/fileXML.xml");            
             String productName = request.getParameter("productName");
             String price = request.getParameter("price");
             String image = request.getParameter("image");
-            String creationDate = request.getParameter("creationDate");
+            String creationDate = LocalDateTime.now().format(formatter);
             String categoryId = request.getParameter("categoryId");
             ProductDAO dao = new ProductDAO();
             List<ProductDTO> list = dao.getAllProducts(path);
