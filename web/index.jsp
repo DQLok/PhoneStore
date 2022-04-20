@@ -56,7 +56,7 @@
                 <form method="post" action="MainController">
                     <div>                    
                         <input class="btn btn-primary" type="submit" name="btnAction" value="Generate" />
-                        <input class="btn btn-primary" type="submit" name="btnAction" value="Crawl" />
+                        <input class="btn btn-primary" type="submit" name="btnAction" value="Crawl Data" />
                         <input class="btn btn-primary" type="submit" name="btnAction" value="Check XML" />
                         <input class="btn btn-primary" type="submit" name="btnAction" value="Load" />                    
                         <h2>
