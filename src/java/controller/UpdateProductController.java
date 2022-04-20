@@ -6,8 +6,9 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,18 +26,19 @@ public class UpdateProductController extends HttpServlet {
 
     private final String INDEX_PAGE = "LoadDataController";
     private final String ERROR_PAGE = "error.html";
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = INDEX_PAGE;
         try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             String path = request.getServletContext().getRealPath("/xml/fileXML.xml");
             String productId = request.getParameter("productId");
             String productName = request.getParameter("productName");
             String price = request.getParameter("price");
             String image = request.getParameter("image");
-            String creationDate = request.getParameter("creationDate");
+            String creationDate = LocalDateTime.now().format(formatter);
             String categoryId = request.getParameter("categoryId");
             ProductDTO dto = new ProductDTO(productId, productName, new BigDecimal(price), image, creationDate, categoryId);
             ProductDAO dao = new ProductDAO();

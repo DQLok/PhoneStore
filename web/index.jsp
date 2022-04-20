@@ -128,9 +128,11 @@
                                             data-toggle="modal"
                                             data-target="#exampleModal3"
                                             data-whatever="@getbootstrap"
+                                            data-product-id="${list.productId}"
                                             data-product-name="${list.productName}"
+                                            data-image="${list.image}"
                                             data-price="${list.price}"
-                                            data-category-id="${list.categoryId}"
+                                            data-category-id="${list.categoryId}"                                            
                                             >
                                             <i class="fas fa-edit"></i> Edit
                                         </a>
@@ -218,7 +220,7 @@
                                     <label for="recipient-name" class="col-form-label"
                                            >Image:</label
                                     >
-                                    <input type="file" class="form-control" name="image" value=""/>
+                                    <input type="file" class="form-control" id="recipient-name" name="image" value=""/>
                                 </div>
 
                             </div>
@@ -264,6 +266,7 @@
                                            >Name Product:</label
                                     >
                                     <input type="text" class="form-control" id="recipient-name" name="productName" value=""/>
+                                    <input type="hidden" class="form-control" id="recipient-name" name="productId" value=""/>
                                 </div>
                                 <div class="form-group">
                                     <label for="recipient-name" class="col-form-label"
@@ -311,7 +314,7 @@
                                     >
                                     Close
                                 </button>                            
-                                <button type="submit" class="btn btn-primary" name="btnAction" value="Edit Product">Edit Product</button>                                                      
+                                <button type="submit" class="btn btn-primary" name="btnAction" value="Update Product">Edit Product</button>                                                      
                             </div>
                         </form>
                     </div>
@@ -387,10 +390,14 @@
             <script src="./dataTable.js"></script>
             <script>
                                             $("#exampleModal3").on("show.bs.modal", function (e) {
+                                                var productId = $(e.relatedTarget).data("product-id");
                                                 var productName = $(e.relatedTarget).data("product-name");
+                                                var image = $(e.relatedTarget).data("image");
                                                 var price = $(e.relatedTarget).data("price");
                                                 var categoryId = $(e.relatedTarget).data("category-id");
+                                                $(e.currentTarget).find('input[name="productId"]').val(productId);
                                                 $(e.currentTarget).find('input[name="productName"]').val(productName);
+                                                $(e.currentTarget).find('input[name="image"]').val(image);
                                                 $(e.currentTarget).find('input[name="price"]').val(price);
                                                 $(e.currentTarget).find('select[name="categoryId"]').val(categoryId);
                                             });

@@ -122,11 +122,20 @@
                                         </c:if>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                data-target="#exampleModal3"
-                                                data-whatever="@getbootstrap">
+                                        <a 
+                                            href="#exampleModal3"
+                                            class="btn btn-primary"
+                                            data-toggle="modal"
+                                            data-target="#exampleModal3"
+                                            data-whatever="@getbootstrap"
+                                            data-product-id="${list.productId}"
+                                            data-product-name="${list.productName}"
+                                            data-image="${list.image}"
+                                            data-price="${list.price}"
+                                            data-category-id="${list.categoryId}"                                            
+                                            >
                                             <i class="fas fa-edit"></i> Edit
-                                        </button>
+                                        </a>
                                     </td>
                                     <td>
                                         <button
@@ -139,9 +148,9 @@
                                         </button>
                                     </td>
                                     <td>
-                                        <button type="submit" class="btn btn-danger" name="btnAction" value="Delete Product">
-                                            <i class="fa fa-trash"></i> Delete                                        
-                                        </button>
+                                        <button class="btn btn-danger" name="btnAction" value="Delete Product" type="submit" onclick="if (!confirm('Are you sure?')) {
+                                                    return false;
+                                                }"><i class="fa fa-trash"></i> Delete </button>
                                         <input type="hidden" name="idProduct" value="${list.productId}" />
                                     </td>
                                 </tr>
@@ -211,7 +220,7 @@
                                     <label for="recipient-name" class="col-form-label"
                                            >Image:</label
                                     >
-                                    <input type="file" class="form-control" name="image" value=""/>
+                                    <input type="file" class="form-control" id="recipient-name" name="image" value=""/>
                                 </div>
 
                             </div>
@@ -229,7 +238,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div
                 class="modal fade"
                 id="exampleModal3"
@@ -252,12 +261,12 @@
                         </div>
                         <form method="POST" action="MainController">
                             <div class="modal-body">
-
                                 <div class="form-group">
                                     <label for="recipient-name" class="col-form-label"
                                            >Name Product:</label
                                     >
                                     <input type="text" class="form-control" id="recipient-name" name="productName" value=""/>
+                                    <input type="hidden" class="form-control" id="recipient-name" name="productId" value=""/>
                                 </div>
                                 <div class="form-group">
                                     <label for="recipient-name" class="col-form-label"
@@ -280,7 +289,12 @@
                                         aria-expanded="false"
                                         >
                                         <c:forEach var="listc" items="${sessionScope.LISTCATEGORIES}" varStatus="counters">
-                                            <option class="dropdown-item" value="${listc.id}" >${listc.categoryName}</option>
+                                            <option class="dropdown-item"
+                                                    <c:if test="${listc.id eq categoryId}"> 
+                                                        selected="true"
+                                                    </c:if> 
+                                                    value="${listc.id}" > ${listc.categoryName}
+                                            </option> 
                                         </c:forEach>
                                     </select>
                                 </div>
@@ -300,13 +314,13 @@
                                     >
                                     Close
                                 </button>                            
-                                <button type="submit" class="btn btn-primary" name="btnAction" value="Add Product">Edit Product</button>                                                      
+                                <button type="submit" class="btn btn-primary" name="btnAction" value="Update Product">Edit Product</button>                                                      
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-            
+
             <div
                 class="modal fade"
                 id="exampleModal"
@@ -374,6 +388,20 @@
             <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
             <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
             <script src="./dataTable.js"></script>
+            <script>
+                                            $("#exampleModal3").on("show.bs.modal", function (e) {
+                                                var productId = $(e.relatedTarget).data("product-id");
+                                                var productName = $(e.relatedTarget).data("product-name");
+                                                var image = $(e.relatedTarget).data("image");
+                                                var price = $(e.relatedTarget).data("price");
+                                                var categoryId = $(e.relatedTarget).data("category-id");
+                                                $(e.currentTarget).find('input[name="productId"]').val(productId);
+                                                $(e.currentTarget).find('input[name="productName"]').val(productName);
+                                                $(e.currentTarget).find('input[name="image"]').val(image);
+                                                $(e.currentTarget).find('input[name="price"]').val(price);
+                                                $(e.currentTarget).find('select[name="categoryId"]').val(categoryId);
+                                            });
+            </script>
     </body>
 </html>
 
