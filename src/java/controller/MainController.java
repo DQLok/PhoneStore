@@ -34,16 +34,16 @@ public class MainController extends HttpServlet {
         String action = request.getParameter("btnAction");
         String url = INDEX_PAGE;
         try {
-            if ("Generate Data".equals(action)) {
+            if ("Generate".equals(action)) {
                 url = GENERATE_DATA;
             }
-            if ("Check Data".equals(action)) {
+            if ("Check XML".equals(action)) {
                 url = CHECK_DATA;
             }
             if ("Dowload Data".equals(action)) {
                 url = DOWNLOAD_DATA;
             }
-            if ("Load Data".equals(action)) {
+            if ("Load".equals(action)) {
                 url = LOAD_DATA;
             }
             if ("Crawl Data".equals(action)) {
