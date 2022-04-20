@@ -1,66 +1,57 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package controller;
 
+import category.CategoriesDAO;
+import category.CategoriesDTO;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import products.ProductDAO;
+import products.ProductDTO;
 
 /**
  *
- * @author duylp
+ * @author LokDQ
  */
-@WebServlet(name = "MainController", urlPatterns = {"/MainController"})
-public class MainController extends HttpServlet {
+@WebServlet(name = "AddProductController", urlPatterns = {"/AddProductController"})
+public class AddProductController extends HttpServlet {
 
-    private final String INDEX_PAGE = "index.jsp";
-    private final String GENERATE_DATA = "GenerateDataController";
-    private final String CHECK_DATA = "CheckDataController";
-    private final String DOWNLOAD_DATA = "DownloadDataController";
-    private final String LOAD_DATA = "LoadDataController";
-    private final String GENERATE_CRAWL_DATA = "GenerateCrawlDataController";
-    private final String ADD_PRODUCT_DATA = "AddProductController";
-    private final String UPDATE_PRODUCT_DATA = "UpdateProductController";
-    private final String DELETE_PRODUCT_DATA = "DeleteProductController";
-
+    private final String INDEX_PAGE = "LoadDataController";
+    private final String ERROR_PAGE = "error.html";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("btnAction");
-        String url = INDEX_PAGE;
+        String url = INDEX_PAGE;        
         try {
-            if ("Generate Data".equals(action)) {
-                url = GENERATE_DATA;
-            }
-            if ("Check Data".equals(action)) {
-                url = CHECK_DATA;
-            }
-            if ("Dowload Data".equals(action)) {
-                url = DOWNLOAD_DATA;
-            }
-            if ("Load Data".equals(action)) {
-                url = LOAD_DATA;
-            }
-            if ("Crawl Data".equals(action)) {
-                url = GENERATE_CRAWL_DATA;
-            }
-            if ("Add Product".equals(action)) {
-                url = ADD_PRODUCT_DATA;
-            }
-            if ("Update Product".equals(action)) {
-                url = UPDATE_PRODUCT_DATA;
-            }
-            if ("Delete Product".equals(action)) {
-                url = DELETE_PRODUCT_DATA;
-            }
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            String path = request.getServletContext().getRealPath("/xml/fileXML.xml");            
+            String productName = request.getParameter("productName");
+            String price = request.getParameter("price");
+            String image = request.getParameter("image");
+            String creationDate = LocalDateTime.now().format(formatter);
+            String categoryId = request.getParameter("categoryId");
+            ProductDAO dao = new ProductDAO();
+            List<ProductDTO> list = dao.getAllProducts(path);
+            String productId = String.valueOf(list.size()+1);
+            ProductDTO dto = new ProductDTO(productId, productName, new BigDecimal(price), image, creationDate, categoryId);
+            dao.addProduct(dto, path);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
+            url = ERROR_PAGE;
+        }finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
