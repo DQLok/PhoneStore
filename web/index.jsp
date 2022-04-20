@@ -55,10 +55,10 @@
             <div style="width: 98%; margin: auto">
                 <form method="post" action="MainController">
                     <div>                    
-                        <input type="submit" name="btnAction" value="Generate Data" />
-                        <input type="submit" name="btnAction" value="Crawl Data" />
-                        <input type="submit" name="btnAction" value="Check Data" />
-                        <input type="submit" name="btnAction" value="Load Data" />                    
+                        <input class="btn btn-primary" type="submit" name="btnAction" value="Generate" />
+                        <input class="btn btn-primary" type="submit" name="btnAction" value="Crawl" />
+                        <input class="btn btn-primary" type="submit" name="btnAction" value="Check XML" />
+                        <input class="btn btn-primary" type="submit" name="btnAction" value="Load" />                    
                         <h2>
                             <font color="green">
                             ${requestScope.SUCCESS}
@@ -138,14 +138,27 @@
                                         </a>
                                     </td>
                                     <td>
-                                        <button
-                                            type="button"
+                                        <a 
+                                            href="#exampleModal4"
                                             class="btn btn-warning"
                                             data-toggle="modal"
-                                            data-target="#exampleModal"
+                                            data-target="#exampleModal4"
+                                            data-whatever="@getbootstrap"
+                                            data-product-name="${list.productName}"
+                                            data-price="${list.price}"                                                                     
+                                            <c:if test="${list.categoryId eq 'C-1'}">
+                                                data-category-id="Samsung"
+                                            </c:if>
+                                            <c:if test="${list.categoryId eq 'C-2'}">
+                                                data-category-id="iPhone"
+                                            </c:if>
+                                            <c:if test="${list.categoryId eq 'C-3'}">
+                                                data-category-id="OPPO"
+                                            </c:if>
+                                            data-image="${list.image}"
                                             >
                                             <i class="fas fa-info"></i> Detail
-                                        </button>
+                                        </a>
                                     </td>
                                     <td>
                                         <button class="btn btn-danger" name="btnAction" value="Delete Product" type="submit" onclick="if (!confirm('Are you sure?')) {
@@ -324,18 +337,15 @@
 
             <div
                 class="modal fade"
-                id="exampleModal"
+                id="exampleModal4"
                 tabindex="-1"
-                role="dialog"
                 aria-labelledby="exampleModalLabel"
                 aria-hidden="true"
                 >
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">
-                                Detailed Product Description
-                            </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Product details</h5>
                             <button
                                 type="button"
                                 class="close"
@@ -346,12 +356,30 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident
-                            non atque nulla nobis. Delectus molestias hic accusamus!
-                            Reprehenderit quaerat ut voluptatem? Modi dolorem a perferendis
-                            rerum optio impedit quasi doloremque autem perspiciatis esse qui
-                            quam maxime minima quos libero veniam tempora, voluptate praesentium
-                            iure dignissimos, explicabo illo omnis earum harum.
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label"
+                                       >Name Product:</label
+                                >
+                                <input disabled type="text" class="form-control" id="recipient-name" name="productName" value=""/>
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label"
+                                       >Price:</label
+                                >
+                                <input disabled type="text" class="form-control" id="recipient-name" name="price" value=""/>
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label"
+                                       >Category:</label
+                                >
+                                <input disabled type="text" class="form-control" id="recipient-name" name="categoryId" value=""/>
+                            </div>
+                            <img
+                                name="image"
+                                id="image"
+                                width="100"
+                                />
+
                         </div>
                         <div class="modal-footer">
                             <button
@@ -360,7 +388,7 @@
                                 data-dismiss="modal"
                                 >
                                 Close
-                            </button>
+                            </button>                                                                                 
                         </div>
                     </div>
                 </div>
@@ -402,6 +430,18 @@
                                                 $(e.currentTarget).find('input[name="price"]').val(price);
                                                 $(e.currentTarget).find('select[name="categoryId"]').val(categoryId);
                                             });
+            </script>
+            <script>
+                $("#exampleModal4").on("show.bs.modal", function (e) {
+                    var productName = $(e.relatedTarget).data("product-name");
+                    var price = $(e.relatedTarget).data("price");
+                    var categoryId = $(e.relatedTarget).data("category-id");
+                    var image = $(e.relatedTarget).data("image");
+                    $(e.currentTarget).find('input[name="productName"]').val(productName);
+                    $(e.currentTarget).find('input[name="price"]').val(price);
+                    $(e.currentTarget).find('input[name="categoryId"]').val(categoryId);
+                    $('#image').attr('src',image);
+                });
             </script>
     </body>
 </html>
