@@ -36,11 +36,19 @@ public class UpdateProductController extends HttpServlet {
             String path = request.getServletContext().getRealPath("/xml/fileXML.xml");
             String productId = request.getParameter("productId");
             String productName = request.getParameter("productName");
-            String price = request.getParameter("price");
+            String tmpIMG ="";
+            String imageFile = request.getParameter("imageFile");
             String image = request.getParameter("image");
+            if (imageFile.equals("")) {
+                tmpIMG = image;
+            } else {
+                tmpIMG = imageFile;
+            }
+            String price = request.getParameter("price");
+            
             String creationDate = LocalDateTime.now().format(formatter);
             String categoryId = request.getParameter("categoryId");
-            ProductDTO dto = new ProductDTO(productId, productName, new BigDecimal(price), image, creationDate, categoryId);
+            ProductDTO dto = new ProductDTO(productId, productName, new BigDecimal(price), tmpIMG, creationDate, categoryId);
             ProductDAO dao = new ProductDAO();
             dao.updateProduct(dto, path);
         } catch (Exception e) {

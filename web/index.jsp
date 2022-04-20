@@ -220,7 +220,7 @@
                                     <label for="recipient-name" class="col-form-label"
                                            >Image:</label
                                     >
-                                    <input type="file" class="form-control" id="recipient-name" name="image" value=""/>
+                                    <input type="file" class="form-control" name="image" value=""/>
                                 </div>
 
                             </div>
@@ -267,6 +267,7 @@
                                     >
                                     <input type="text" class="form-control" id="recipient-name" name="productName" value=""/>
                                     <input type="hidden" class="form-control" id="recipient-name" name="productId" value=""/>
+                                    <input type="hidden" class="form-control" id="recipient-name" name="image" value=""/>
                                 </div>
                                 <div class="form-group">
                                     <label for="recipient-name" class="col-form-label"
@@ -302,7 +303,7 @@
                                     <label for="recipient-name" class="col-form-label"
                                            >Image:</label
                                     >
-                                    <input type="file" class="form-control" name="image" value=""/>
+                                    <input type="file" class="form-control" name="imageFile" value=""/>
                                 </div>
 
                             </div>
