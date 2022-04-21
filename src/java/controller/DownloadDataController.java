@@ -22,34 +22,43 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "DownloadDataController", urlPatterns = {"/DownloadDataController"})
 public class DownloadDataController extends HttpServlet {
-    
+
     private final String INDEX_PAGE = "index.jsp";
     private final String ERROR_PAGE = "error.html";
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8;");        
         PrintWriter out = response.getWriter();
-        response.setHeader("Content-disposition", "attachment; filename=fileXML.xml");
         String url = INDEX_PAGE;
         try {
-          String path = request.getServletContext().getRealPath("/xml/fileXML.xml");
-          FileInputStream fis = new FileInputStream(path);
-            BufferedReader br = new BufferedReader(new InputStreamReader(fis));
-            while (true) {
-                String s = br.readLine();
-                if (s == null) {
-                    break;
-                }
-                out.println(s);
-                out.flush();
+            String typeFile = request.getParameter("typeFile");
+            String path = "";
+            if (typeFile.equals("xml")) {
+                path = request.getServletContext().getRealPath("/xml/fileXML.xml");
+                response.setHeader("Content-disposition", "attachment; filename=fileXML.xml");
             }
-            fis.close();            
+            if (typeFile.equals("pdf")) {
+                response.setContentType("application/pdf");
+                path = request.getServletContext().getRealPath("/xml/filePDF.pdf");
+                response.setHeader("Content-Disposition", "attachment; filename=filePDF.pdf");                
+            }
+            try (FileInputStream fis = new FileInputStream(path)) {
+                BufferedReader br = new BufferedReader(new InputStreamReader(fis));
+                while (true) {
+                    String s = br.readLine();
+                    if (s == null) {
+                        break;
+                    }
+                    out.println(s);
+                    out.flush();
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
             url = ERROR_PAGE;
         } finally {
-            out.close();          
+            out.close();
         }
     }
 

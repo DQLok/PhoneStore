@@ -58,7 +58,8 @@
                         <input class="btn btn-primary" type="submit" name="btnAction" value="Generate" />
                         <input class="btn btn-primary" type="submit" name="btnAction" value="Crawl Data" />
                         <input class="btn btn-primary" type="submit" name="btnAction" value="Check XML" />
-                        <input class="btn btn-primary" type="submit" name="btnAction" value="Load" />                    
+                        <input class="btn btn-primary" type="submit" name="btnAction" value="Load" />
+                        <input class="btn btn-primary" type="submit" name="btnAction" value="ExportPDF" />
                         <h2>
                             <font color="green">
                             ${requestScope.SUCCESS}
@@ -66,10 +67,19 @@
                             <font color="green">
                             ${requestScope.SUCCESS_CREATE}
                             </font>
+                            <font color="green">
+                            ${requestScope.EXPORT_FILE}
+                            </font>
                         </h2>
                         <c:if test="${requestScope.SUCCESS_CREATE ne null }">
                             <p>Click on the image to download it:<p>
-                                <a href="MainController?btnAction=Dowload Data" download="fileXML">
+                                <a href="MainController?btnAction=Dowload Data&typeFile=xml" download="fileXML">
+                                    <img src="https://www.phoca.cz/images/projects/phoca-download-r.png" width="100" height="100">
+                                </a>
+                            </c:if>
+                        <c:if test="${requestScope.EXPORT_FILE ne null }">
+                            <p>Click on the image to download it:<p>
+                                <a href="MainController?btnAction=Dowload Data&typeFile=pdf" download="filePDF">
                                     <img src="https://www.phoca.cz/images/projects/phoca-download-r.png" width="100" height="100">
                                 </a>
                             </c:if>
