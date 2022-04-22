@@ -5,10 +5,9 @@
  */
 package controller;
 
-import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,38 +19,31 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author LokDQ
  */
-@WebServlet(name = "DownloadDataController", urlPatterns = {"/DownloadDataController"})
-public class DownloadDataController extends HttpServlet {
+@WebServlet(name = "DownloadPDFController", urlPatterns = {"/DownloadPDFController"})
+public class DownloadPDFController extends HttpServlet {
 
     private final String INDEX_PAGE = "index.jsp";
     private final String ERROR_PAGE = "error.html";
-
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8;");        
-        PrintWriter out = response.getWriter();
+        response.setContentType("text/html;charset=UTF-8");
+        OutputStream op = response.getOutputStream();
         String url = INDEX_PAGE;
         try {
-            String typeFile = request.getParameter("typeFile");
-            String path = request.getServletContext().getRealPath("/xml/fileXML.xml");
-                response.setHeader("Content-disposition", "attachment; filename=fileXML.xml");
-            
-            try (FileInputStream fis = new FileInputStream(path)) {
-                BufferedReader br = new BufferedReader(new InputStreamReader(fis));
-                while (true) {
-                    String s = br.readLine();
-                    if (s == null) {
-                        break;
-                    }
-                    out.println(s);
-                    out.flush();
-                }
-            }
+                response.setContentType("application/pdf");
+                String path = request.getServletContext().getRealPath("/xml/filePDF.pdf");
+                response.setHeader("Content-Disposition", "attachment; filename=filePDF.pdf");
+                FileInputStream fis = new FileInputStream(path);
+                byte[] b = new byte[fis.available()];
+                fis.read(b);
+                op.write(b);
+                op.flush();
         } catch (Exception e) {
             e.printStackTrace();
             url = ERROR_PAGE;
         } finally {
-            out.close();
+            op.close();
         }
     }
 

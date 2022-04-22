@@ -73,13 +73,13 @@
                         </h2>
                         <c:if test="${requestScope.SUCCESS_CREATE ne null }">
                             <p>Click on the image to download it:<p>
-                                <a href="MainController?btnAction=Dowload Data&typeFile=xml" download="fileXML">
+                                <a href="MainController?btnAction=Dowload Data" download="fileXML">
                                     <img src="https://www.phoca.cz/images/projects/phoca-download-r.png" width="100" height="100">
                                 </a>
                             </c:if>
                         <c:if test="${requestScope.EXPORT_FILE ne null }">
                             <p>Click on the image to download it:<p>
-                                <a href="MainController?btnAction=Dowload Data&typeFile=pdf" download="filePDF">
+                                <a href="MainController?btnAction=Dowload PDF" download="filePDF">
                                     <img src="https://www.phoca.cz/images/projects/phoca-download-r.png" width="100" height="100">
                                 </a>
                             </c:if>

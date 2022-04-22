@@ -5,13 +5,14 @@
  */
 package category;
 
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
  *
  * @author LokDQ
  */
-public class CategoriesDTO {
+public class CategoriesDTO implements Serializable{
 
     public CategoriesDTO() {
     }

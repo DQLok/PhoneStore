@@ -76,7 +76,7 @@ public class ConvertXML {
 
             int count = 0;
             int priceConst = 37990000;
-            for (int i = 1; i < 10; i++) {
+            for (int i = 1; i < 101; i++) {
                 count++;
                 product = document.createElement("product");
                 products.appendChild(product);

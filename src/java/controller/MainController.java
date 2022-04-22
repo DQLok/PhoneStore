@@ -28,6 +28,7 @@ public class MainController extends HttpServlet {
     private final String UPDATE_PRODUCT_DATA = "UpdateProductController";
     private final String DELETE_PRODUCT_DATA = "DeleteProductController";
     private final String EXPORT_PDF_DATA = "ExportPDFController";
+    private final String DOWNLOAD_PDF= "DownloadPDFController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -61,6 +62,9 @@ public class MainController extends HttpServlet {
             }
             if ("ExportPDF".equals(action)) {
                 url = EXPORT_PDF_DATA;
+            }
+            if ("Dowload PDF".equals(action)) {
+                url = DOWNLOAD_PDF;
             }
         } catch (Exception e) {
             e.printStackTrace();

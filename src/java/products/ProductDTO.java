@@ -5,6 +5,7 @@
  */
 package products;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.xml.bind.annotation.XmlElement;
 
@@ -12,7 +13,7 @@ import javax.xml.bind.annotation.XmlElement;
  *
  * @author LokDQ
  */
-public class ProductDTO {
+public class ProductDTO implements Serializable{
 
     public ProductDTO() {
     }
