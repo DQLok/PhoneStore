@@ -15,10 +15,6 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.javax.servlet-api-4.0.1.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library dirs="200">
                     <file>${file.reference.org-netbeans-modules-java-j2seproject-copylibstask.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
